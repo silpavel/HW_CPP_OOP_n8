@@ -27,6 +27,7 @@ public:
 	bool operator>=(const List&);//too
 	bool operator<(const List&);//too
 	bool operator>(const List&);//too
+
 	List operator-();
 };
 #endif // DLLISTTMPLT_H
