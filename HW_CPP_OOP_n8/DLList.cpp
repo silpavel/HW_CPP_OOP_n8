@@ -217,9 +217,4 @@ List List::operator-() {
 	return resault;
 }
 ////////////////////////////////////-------------
-/*
-template<class T>
-T TestClass<T>::getT() {
-	return nt;
-}
-*/
+

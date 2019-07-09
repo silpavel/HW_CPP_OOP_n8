@@ -1,14 +1,14 @@
 #include <iostream>
 #include "DLList.h"
+#include "DLListTmplt.h"
 using namespace std;
 void testList();
+void testListT();
 
 int main() {
-	//testList();
-	TestClass<int> i(10);
-	cout << i.getT() << endl;
-	TestClass<double> d(10);
-	cout << d.getT() << endl;
+	testListT();
+	
+	
 
 	system("pause");
 	return 0;
@@ -33,5 +33,64 @@ void testList() {
 	T.print();
 	List S = -L + T;
 	S.print();
+
+}
+void testListT() {
+	ListT<int> Li;
+	ListT<double> Ld;
+	ListT<char> Lc;
+	const int n = 10;
+	int ai[n] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+	double ad[n] = {0, 1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9};
+	char ac[n] = {'a','b','c', 'd','e','f','g','h','i','j'};
+	for (int i = 0; i < n; i++) {
+		if (i % 2 == 0)
+			Li.addHead(ai[i]);
+		else
+			Li.addTail(ai[i]);
+	}
+	for (int i = 0; i < n; i++) {
+		if (i % 2 == 0)
+			Ld.addHead(ad[i]);
+		else
+			Ld.addTail(ad[i]);
+	}
+	for (int i = 0; i < n; i++) {
+		if (i % 2 == 0)
+			Lc.addHead(ac[i]);
+		else
+			Lc.addTail(ac[i]);
+	}
+	Li.print();
+	Ld.print();
+	Lc.print();
+	Li.insert();
+	Li.print();
+	Ld.insert();
+	Ld.print();
+	Lc.insert();
+	Lc.print();
+	Li.print(1);
+	Ld.print(8);
+	Lc.print(10);
+	cout << endl;
+	ListT<int> Ti;
+	ListT<double> Td;
+	ListT<char> Tc;
+	Ti = Li;
+	Td = Ld;
+	Tc = Lc;
+	Ti.print();
+	Td.print();
+	Tc.print();
+	ListT<int> Si = -Li + Ti;
+	ListT<double> Sd = -Ld + Td;
+	ListT<char> Sc = -Lc + Tc;
+	Si.print();
+	Sd.print();
+	Sc.print();
+	
+	
+
 
 }
