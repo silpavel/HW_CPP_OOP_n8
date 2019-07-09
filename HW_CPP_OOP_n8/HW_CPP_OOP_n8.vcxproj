@@ -127,6 +127,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Array.h" />
     <ClInclude Include="DLList.h" />
     <ClInclude Include="DLListTmplt.h" />
   </ItemGroup>

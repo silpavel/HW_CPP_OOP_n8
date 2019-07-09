@@ -1,15 +1,29 @@
 #include <iostream>
 #include "DLList.h"
 #include "DLListTmplt.h"
+#include "Array.h"
 using namespace std;
 void testList();
 void testListT();
 
 int main() {
-	testListT();
+	//testListT();
+	//testList();
+	Array<int> arr;
+	for (int i = 0; i < 10; i++) {
+		arr.arr[i] = i * i;
+	}
 	
 	
-
+	arr.setSize(15, 5);
+	for (int i = 0; i < 15; i++) {
+		cout << arr[i] << endl;
+	}
+	//arr.setSize(10, 5);
+	for (int i = 0; i < 10; i++) {
+		//cout << arr[i] << endl;
+	}
+	
 	system("pause");
 	return 0;
 }
