@@ -7,9 +7,15 @@ class Array {
 	int size;
 	int grow;//grow step if array is filled
 public:
+	//cons  & dest
 	Array(int size, int grow);
+	// methods
 	int getSize();
 	void setSize(int size, int grow);
+	void show();
+	// operators
+	int& operator[](int);//T?
+	Array& operator=(const Array&);//T T
 };
 int Array::getSize() {
 	return size;
@@ -28,6 +34,23 @@ void Array::setSize(int newsize, int newgrow) {
 	else if (newsize < size)
 		for(int i=0;i<newsize;i++)
 			newdata[i] = data[i];
+}
+void Array::show() {
+	for (int i = 0; i < size; i++)
+		cout << data[i] << ' ';
+	cout << endl;
+}
+int& Array::operator[](int i) {
+	if (i < size)
+		return data[i];
+	else
+		throw "ofr";//out of range exception
+}
+Array& Array::operator=(const Array &arr) {
+	if (this == &arr)
+		return *this;
+	delete this;
+
 }
 
 #define ARRAY_H

@@ -11,7 +11,10 @@ int main() {
 	//testList();
 	
 	Array a1(10);
-	Array a2(10, 5);
+	for (int i = 0; i < 10; i++)
+		a1[i] = i;
+	a1.show();
+	
 	
 	system("pause");
 	return 0;
