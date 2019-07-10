@@ -9,20 +9,9 @@ void testListT();
 int main() {
 	//testListT();
 	//testList();
-	Array<int> arr;
-	for (int i = 0; i < 10; i++) {
-		arr.arr[i] = i * i;
-	}
 	
-	
-	arr.setSize(15, 5);
-	for (int i = 0; i < 15; i++) {
-		cout << arr[i] << endl;
-	}
-	//arr.setSize(10, 5);
-	for (int i = 0; i < 10; i++) {
-		//cout << arr[i] << endl;
-	}
+	Array a1(10);
+	Array a2(10, 5);
 	
 	system("pause");
 	return 0;

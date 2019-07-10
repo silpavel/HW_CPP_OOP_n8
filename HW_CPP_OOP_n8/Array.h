@@ -2,60 +2,33 @@
 #include <iostream>
 using namespace std;
 #ifndef ARRAY_H
-template<class T>
 class Array {
-	
+	int* data;//T
 	int size;
-	int grow;
-	int last;
-	
+	int grow;//grow step if array is filled
 public:
-	T* arr;
-	Array();
-	~Array();
+	Array(int size, int grow);
 	int getSize();
-	int setSize(int size, int grow = 1);
-	T operator[](int ind);
-	T operator=(const T&);
+	void setSize(int size, int grow);
 };
-template<class T>
-Array<T>::Array() {
-	size = 10;
-	grow = 10;
-	last = 0;//empty array
-	arr = new T[size]{};//{} for 0 0 0 0 0 0 0
-}
-template<class T>
-Array<T>::~Array() {
-	delete[] arr;
-}
-template<class T>
-int Array<T>::getSize() {
+int Array::getSize() {
 	return size;
 }
-template<class T>
-T Array<T>::operator[](int ind) {
-	if (ind < size)
-		return 5;// arr[ind];
-	else
-		return 0;
+Array::Array(int size, int grow=10) {
+	this->size = size;
+	this->grow = grow;
+	data = new int[size] {};//T 0 0 0 0 0 0
 }
-template<class T>
-int Array<T>::setSize(int newsize, int newgrow) {
-	T* newarr = new T[newsize];
-	for (int i = 0; i < newsize; i++) {
-		newarr[i] = arr[i];// 1 5 7 9 0 0 0 0 0 0 newsize>size
-		cout <<"%%%"<< arr[i] << endl;
-	}
-	delete[] arr;
-	size = newsize;
+void Array::setSize(int newsize, int newgrow) {
 	grow = newgrow;
-	arr = newarr;
-	return 0;
+	int* newdata = new int[newsize] {};//T 0 0 0 0 
+	if (newsize > size)
+		for (int i = 0; i < size; i++)
+			newdata[i] = data[i];
+	else if (newsize < size)
+		for(int i=0;i<newsize;i++)
+			newdata[i] = data[i];
 }
-
-
-
 
 #define ARRAY_H
 #endif // !ARRAY_H
