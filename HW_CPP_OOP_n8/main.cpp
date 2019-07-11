@@ -9,12 +9,10 @@ void testListT();
 int main() {
 	//testListT();
 	//testList();
-	
 	Array a1(10);
-	for (int i = 0; i < 10; i++)
-		a1[i] = i;
 	a1.show();
-	
+	cout << a1.getUpperBound() << endl;
+	cout << a1.isEmpty() << endl;
 	
 	system("pause");
 	return 0;
