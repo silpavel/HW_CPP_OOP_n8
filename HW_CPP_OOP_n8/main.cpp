@@ -9,11 +9,25 @@ void testListT();
 int main() {
 	//testListT();
 	//testList();
-	Array a1(10);
-	a1.show();
-	cout << a1.getUpperBound() << endl;
-	cout << a1.isEmpty() << endl;
-	
+	Array a3(0);
+	a3.show();
+	a3.show(1);
+	{
+		Array a1(5, 5);
+		a1.add(1);
+		a1.add(3);
+		a1.add(5);
+		a1.add(7);
+		cout << "upperBound for a1=" << a1.getUpperBound() << endl;
+		Array a2(3, 3);
+		a2.add(2);
+		a2.add(4);
+		cout << "upperBound for a2=" << a2.getUpperBound() << endl;
+		a3.append(a1, a2);
+	}
+	a3.show();
+	a3.show(1);
+	 
 	system("pause");
 	return 0;
 }

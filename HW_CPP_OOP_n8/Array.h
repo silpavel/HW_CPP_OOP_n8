@@ -10,17 +10,20 @@ class Array {
 public:
 	//cons  & dest
 	Array(int size, int grow);
+	Array(Array&, int size, int grow);
 	~Array();
 	// methods
 	int getSize();
 	int getUpperBound();
 	bool isEmpty();
 	void setSize(int size, int grow);
-	void show();
+	void show(bool ubON=1);
 	int getAt(int index);//return T
 	void setAt(int value, int index);//T value
 	int add(int value);//return upper bound
-	//void freeExtra();
+	void freeExtra();
+	void removeAll();
+	Array& append(const Array&, const Array&);
 	// operators
 	int& operator[](int);//return T&
 	Array& operator=(const Array&);//T T
@@ -28,11 +31,14 @@ public:
 int Array::getSize() {
 	return size;
 }
-Array::Array(int size, int grow=10) {
+Array::Array(int size, int grow=1) {
 	this->size = size;
 	this->grow = grow;
 	this->upperBound = -1;//empty array
 	data = new int[size] {};//new T[] 0 0 0 0 0 0
+}
+Array::Array(Array&, int size, int grow) {
+	cout << "Copy constructor\n";
 }
 Array::~Array() {
 	delete[] data;
@@ -48,13 +54,14 @@ void Array::setSize(int newsize, int newgrow=1) {
 	if (upperBound >= size)
 		upperBound = size - 1;
 }
-void Array::show() {
-	for (int i = 0; i < size; i++)//<--upperBound
+void Array::show(bool ubON) {//ubON==true is show until upperBound index
+	int index = ubON ? upperBound : size-1;
+	for (int i = 0; i <= index; i++)//<--upperBound
 		cout << data[i] << ' ';
 	cout << endl;
 }
 int& Array::operator[](int i) {
-	if (i < size)//<------upperBound
+	if (i <= upperBound)//<------upperBound
 		return data[i];
 	else
 		throw "out of range";//exception
@@ -93,6 +100,26 @@ int Array::add(int value) {//T value
 	data[++upperBound]=value;
 	return upperBound;
 }
+void Array::freeExtra() {
+	setSize(upperBound+1, grow);
+}
+void Array::removeAll() {
+	upperBound = -1;
+	//setSize(0,grow); //can ON if need free memory
+}
+Array& Array::append(const Array &a1, const Array &a2) {
+	int maxgrow = (a1.grow > a1.grow) ? a1.grow : a2.grow;
+	int a1ub, a2ub;
+	a1ub = a1.upperBound;
+	a2ub = a2.upperBound;
+	Array aResault(a1ub + a2ub + 1,maxgrow);
+	for (int i = 0; i <= a1ub; i++)
+		aResault.data[i] = a1.data[i];
+	for (int i = 0; i <= a2ub; i++)
+		aResault.data[i+a1ub+1] = a2.data[i];
+	return aResault;
+}
+
 #define ARRAY_H
 #endif // !ARRAY_H
 
