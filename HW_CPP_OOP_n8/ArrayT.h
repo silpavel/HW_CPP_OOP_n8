@@ -31,8 +31,10 @@ class ArrayT {
 public:
 	//cons  & dest
 	ArrayT(int size, int grow=1);
-	ArrayT(const ArrayT&);
 	~ArrayT();
+	//methods
+	int add(T value);//return upper bound
+	//operators
 };
 
 //ArrayT methods
@@ -60,6 +62,17 @@ ArrayT<T>::~ArrayT() {
 	cout << "free ArrayT " << typeid(T).name() << " " << (int)this << endl;
 #endif //TEST
 }
+template<class T>
+int ArrayT<T>::add(T value) {//return upper bound
+	if (upperBound == size - 1)//array is filled
+		setSize(size + grow, grow);
+	if(T_is_class)
+		//data[++upperBound] = value;
+	else
+		data[++upperBound] = value;
+	return upperBound;
+}
+
 //Adapter
 template<class T>
 ArrayT<T>::Adapter::Adapter(){
