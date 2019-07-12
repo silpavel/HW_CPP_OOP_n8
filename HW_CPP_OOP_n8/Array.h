@@ -3,18 +3,18 @@
 using namespace std;
 #ifndef ARRAY_H
 class Array {
-	int* data;//new T[]
+	int* data;// T*
 	int size;//size array
 	int grow;//grow step if array is filled
 	int upperBound;// 1 7 4 6 0 0 0 index=3 size=7
 public:
 	//cons  & dest
 	Array(int size, int grow);
-	Array(Array&, int size, int grow);
+	Array(const Array&);
 	~Array();
 	// methods
 	int getSize();
-	int getUpperBound();
+	int getUpperBound() const;
 	bool isEmpty();
 	void setSize(int size, int grow);
 	void show(bool ubON=1);
@@ -23,6 +23,7 @@ public:
 	int add(int value);//return upper bound
 	void freeExtra();
 	void removeAll();
+	int* getData();//T*
 	Array& append(const Array&, const Array&);
 	// operators
 	int& operator[](int);//return T&
@@ -36,15 +37,26 @@ Array::Array(int size, int grow=1) {
 	this->grow = grow;
 	this->upperBound = -1;//empty array
 	data = new int[size] {};//new T[] 0 0 0 0 0 0
+	//cout << "new Array " << (int)this << endl;
 }
-Array::Array(Array&, int size, int grow) {
-	cout << "Copy constructor\n";
+Array::Array(const Array& arr) {
+	this->size = arr.size;
+	this->data = new int[this->size];
+	this->grow = arr.grow;
+	this->upperBound = arr.upperBound;
+	for (int i = 0; i <= (this->getUpperBound()); i++)
+		this->data[i] = arr.data[i];
+
+	cout << "new copy Array " << (int)this << endl;
+	
 }
 Array::~Array() {
+	//cout << "free Array " << (int)this << endl;
 	delete[] data;
 }
-void Array::setSize(int newsize, int newgrow=1) {
-	grow = newgrow;
+void Array::setSize(int newsize, int newgrow=0) {
+	if(newgrow > 0)
+		grow = newgrow;
 	int* newdata = new int[newsize] {};//new T 0 0 0 0 
 	for (int i = 0; i < size && i<newsize; i++)
 		newdata[i] = data[i];
@@ -78,7 +90,7 @@ Array& Array::operator=(const Array &arr) {
 	this->upperBound = arr.upperBound;// up /|\ 
 	return *this;
 }
-int Array::getUpperBound() {
+int Array::getUpperBound() const{
 	return upperBound;
 }
 bool Array::isEmpty() {
@@ -108,17 +120,22 @@ void Array::removeAll() {
 	//setSize(0,grow); //can ON if need free memory
 }
 Array& Array::append(const Array &a1, const Array &a2) {
-	int maxgrow = (a1.grow > a1.grow) ? a1.grow : a2.grow;
-	int a1ub, a2ub;
-	a1ub = a1.upperBound;
-	a2ub = a2.upperBound;
-	Array aResault(a1ub + a2ub + 1,maxgrow);
+	int a1ub = a1.getUpperBound();
+	int a2ub = a2.getUpperBound();
+	int grow = (a1.grow > a2.grow) ? a1.grow : a2.grow;//max grow
+	setSize(a1ub + 1 + a2ub + 1, grow);
 	for (int i = 0; i <= a1ub; i++)
-		aResault.data[i] = a1.data[i];
+		data[i] = a1.data[i];
 	for (int i = 0; i <= a2ub; i++)
-		aResault.data[i+a1ub+1] = a2.data[i];
-	return aResault;
+		data[a1ub + 1 + i] = a2.data[i];
+	upperBound = a1ub + a2ub + 1;
+	return *this;
 }
+int* Array::getData() {//T*
+	return data;
+}
+
+
 
 #define ARRAY_H
 #endif // !ARRAY_H

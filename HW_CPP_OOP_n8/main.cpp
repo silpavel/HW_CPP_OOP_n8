@@ -2,35 +2,28 @@
 #include "DLList.h"
 #include "DLListTmplt.h"
 #include "Array.h"
+#include "ArrayT.h"
 using namespace std;
 void testList();
 void testListT();
-
+void testArray();//for int only
+void f(Array arr);
 int main() {
 	//testListT();
 	//testList();
-	Array a3(0);
-	a3.show();
-	a3.show(1);
+	//testArray();
 	{
-		Array a1(5, 5);
-		a1.add(1);
-		a1.add(3);
-		a1.add(5);
-		a1.add(7);
-		cout << "upperBound for a1=" << a1.getUpperBound() << endl;
-		Array a2(3, 3);
-		a2.add(2);
-		a2.add(4);
-		cout << "upperBound for a2=" << a2.getUpperBound() << endl;
-		a3.append(a1, a2);
+		
+		ArrayT<int> a1i(5,5);
+		ArrayT<TestClass> a1tk(5,5);
+		
+		
+
 	}
-	a3.show();
-	a3.show(1);
-	 
 	system("pause");
 	return 0;
 }
+
 void testList() {
 	List L;
 	const int n = 10;
@@ -111,4 +104,45 @@ void testListT() {
 	
 
 
+}
+void f(Array arr) {
+	cout << "INNER\n";
+	cout << "pDATA: " << (int)arr.getData() << endl;
+	cout << "UB: " << arr.getUpperBound() << endl;
+
+	arr.show();
+	arr.show(0);
+}
+void testArray() {
+	for (int i = 0; i < 1; i++)//check
+	{
+		Array a1(5, 5);
+		a1.add(1);
+		a1.add(3);
+		a1.add(5);
+		//a1.show();
+		//a1.show(0);
+		//cout << "pDATA: " << (int)a1.getData() << endl;
+		Array a2(3, 3);
+		a2.add(2);
+		a2.add(4);
+		//a2.show();
+		//a2.show(0);
+		//cout << "pDATA: " << (int)a2.getData() << endl;
+		Array* pa = new Array(1, 1);
+		//cout << "undo pDATA: " << (int)pa->getData() << endl;
+		pa->append(a1, a2);
+		//pa->show();
+		//pa->show(0);
+		//cout << "pDATA: " << (int)pa->getData() << endl;
+		Array a4(1, 1);
+		//cout << "undo pDATA: " << (int)a4.getData() << endl;
+		a4 = *pa;
+		delete pa;
+		a4.show();
+		a4.show(0);
+		cout << "pDATA: " << (int)a4.getData() << endl;
+		cout << "UB: " << a4.getUpperBound() << endl;
+		f(a4);
+	}
 }
