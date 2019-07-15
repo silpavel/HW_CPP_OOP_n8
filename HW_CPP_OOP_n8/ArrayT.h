@@ -5,6 +5,7 @@ using namespace std;
 #ifndef ARRAYT_H
 #define ARRAYT_H
 #define TEST "ON"
+
 class TestClass {
 	int i;
 public:
@@ -14,7 +15,12 @@ public:
 	~TestClass();
 	void set(int);
 	int get();
+	friend ostream& operator<<(ostream&, const TestClass&);
 };
+ostream& operator<<(ostream &out, const TestClass &tk) {
+	out<< tk.i;
+	return out;
+}
 template<class T>
 class ArrayT {
 	T* data;// T*
@@ -28,9 +34,9 @@ public:
 	~ArrayT();
 	// methods
 	int getSize();
-	int getUpperBound() const;
+	int getUpperBound();
 	bool isEmpty();
-	void setSize(int size, int grow);
+	void setSize(int size, int grow=1);
 	void show(bool ubON = 1);
 	T getAt(int index);//return T
 	void setAt(T value, int index);//T value
@@ -72,7 +78,28 @@ ArrayT<T>::~ArrayT() {
 	cout << "free ArrayT: " << (int)this << endl;
 	delete[] data;
 }
-
+template<class T>
+void ArrayT<T>::setSize(int newsize, int newgrow) {
+	if (newgrow > 0)
+		grow = newgrow;
+	T* newdata = new T[newsize] {};//new T 0 0 0 0 
+	for (int i = 0; i < size && i < newsize; i++)
+		newdata[i] = data[i];
+	delete[] data;
+	data = newdata;
+	size = newsize;
+	if (upperBound >= size)//is not deleting elems
+		upperBound = size - 1;
+}
+template<class T>
+void ArrayT<T>::show(bool ubON) {//ubON==true is show until upperBound index
+	int index = ubON ? upperBound : size - 1;
+	for (int i = 0; i <= index; i++)//<--upperBound
+		cout << data[i] << ' ';
+	if (upperBound == -1 && ubON)
+		cout << "[Empty Array]";
+	cout << endl;
+}
 
 // TestClass methods
 TestClass::TestClass(int i) :i(i) {
@@ -99,7 +126,7 @@ TestClass::~TestClass() {
 void TestClass::set(int i) {
 	this->i = i;
 }
-int TestClass::get() {
+int TestClass::get(){
 	return i;
 }
 #endif // !ARRAYT_H

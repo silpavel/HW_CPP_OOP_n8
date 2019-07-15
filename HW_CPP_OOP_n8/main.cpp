@@ -17,6 +17,12 @@ int main() {
 		ArrayT<TestClass> a1tk(2, 2);
 		cout << a1i.getSize()  << endl;
 		cout << a1tk.getSize() << endl;
+		a1i.show();
+		a1i.show(0);
+		a1tk.show();
+		a1tk.show(0);
+		
+		
 	}
 	system("pause");
 	return 0;
