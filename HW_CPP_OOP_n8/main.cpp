@@ -16,9 +16,18 @@ int main() {
 		//ArrayT<int> a1i(3,3),a2i(3,3);
 		ArrayT<TestClass> a1tk(2, 2),a2tk(2,2);
 		//ArrayT<TestClass*> a1tk_p(5, 5);
-		TestClass tk1(2), tk2(4),tk3(6);
+		TestClass tk1(2), tk2(4),tk3(6),tk4(8);
+		a1tk.add(tk1);
+		a1tk.add(tk2);
+		a1tk.show();
+		a2tk.add(tk3);
+		a2tk.add(tk4);
+		a2tk.show();
 		
-		system("pause");
+		a2tk = a1tk;
+		a2tk.show();
+		
+		
 		
 	}
 	system("pause");

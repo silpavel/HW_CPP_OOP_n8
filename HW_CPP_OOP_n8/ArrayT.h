@@ -4,7 +4,7 @@
 using namespace std;
 #ifndef ARRAYT_H
 #define ARRAYT_H
-#define TEST "ON"
+//#define TEST "ON"//show constructor|destractor
 
 class TestClass {
 	int i;
@@ -46,8 +46,8 @@ public:
 	T* getData();//T*
 	ArrayT& append(const ArrayT&, const ArrayT&);
 	// operators
-	int& operator[](int);//return T&
-	Array& operator=(const Array&);//T T
+	T& operator[](int);//return T&
+	ArrayT<T>& operator=(const ArrayT<T>&);//T T
 };
 //ArrayT methods
 template<class T>
@@ -62,7 +62,9 @@ ArrayT<T>::ArrayT(int size, int grow) {
 	else this->grow = grow;
 	this->upperBound = -1;//empty array
 	data = new T[size];//new T[] 0 0 0 0 0 0
+#ifdef TEST
 	cout << "new ArrayT: " << (int)this << endl;
+#endif // TEST
 }
 template<class T>
 ArrayT<T>::ArrayT(const ArrayT<T>& arr) {
@@ -72,13 +74,15 @@ ArrayT<T>::ArrayT(const ArrayT<T>& arr) {
 	this->upperBound = arr.upperBound;
 	for (int i = 0; i <= (this->getUpperBound()); i++)
 		this->data[i] = arr.data[i];
-
+#ifdef TEST
 	cout << "new copy ArrayT: " << (int)this << endl;
-
+#endif // TEST
 }
 template<class T>
 ArrayT<T>::~ArrayT() {
+#ifdef TEST	
 	cout << "free ArrayT: " << (int)this << endl;
+#endif // TEST
 	delete[] data;
 }
 template<class T>
@@ -156,7 +160,26 @@ ArrayT<T>& ArrayT<T>::append(const ArrayT<T>& a1, const ArrayT<T>& a2) {
 	upperBound = a1ub + a2ub + 1;
 	return *this;
 }
-
+template<class T>
+T& ArrayT<T>::operator[](int i) {
+	if (i <= upperBound)
+		return data[i];
+	else
+		throw "out of range";//exception
+}
+template<class T>
+ArrayT<T>& ArrayT<T>::operator=(const ArrayT<T>& arr) {
+	if (this->size != arr.size) {
+		delete[] data;
+		data = new T[arr.size];//T
+		this->size = arr.size;
+	}
+	this->upperBound = arr.upperBound;// up /|\ 
+	this->grow = arr.grow;
+	for (int i = 0; i <= this->upperBound; i++)
+		this->data[i] = arr.data[i];
+	return *this;
+}
 
 // TestClass methods
 TestClass::TestClass(int i) :i(i) {
