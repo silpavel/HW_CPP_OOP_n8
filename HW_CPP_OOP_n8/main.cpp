@@ -13,10 +13,10 @@ int main() {
 	//testList();
 	//testArray();
 	{
-		
-		
-		
-
+		ArrayT<int> a1i(3,3);
+		ArrayT<TestClass> a1tk(2, 2);
+		cout << a1i.getSize()  << endl;
+		cout << a1tk.getSize() << endl;
 	}
 	system("pause");
 	return 0;
