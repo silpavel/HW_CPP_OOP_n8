@@ -13,14 +13,7 @@ int main() {
 	//testList();
 	//testArray();
 	{
-		ArrayT<int> a1i(5,5);
-		ArrayT<TestClass> a1tk(5,5);
-		a1i.add(5);
-		a1i.add(7);
-		TestClass tk(7);
-		TestClass tm(7);
-		a1tk.add(tk);
-		a1tk.add(tm);
+		
 		
 		
 
