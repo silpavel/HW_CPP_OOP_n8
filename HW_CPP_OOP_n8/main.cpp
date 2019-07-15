@@ -13,15 +13,12 @@ int main() {
 	//testList();
 	//testArray();
 	{
-		ArrayT<int> a1i(3,3);
-		ArrayT<TestClass> a1tk(2, 2);
-		cout << a1i.getSize()  << endl;
-		cout << a1tk.getSize() << endl;
-		a1i.show();
-		a1i.show(0);
-		a1tk.show();
-		a1tk.show(0);
-		
+		//ArrayT<int> a1i(5,3);
+		ArrayT<TestClass> a1tk(5, 2);
+		//ArrayT<TestClass*> a1tk_p(5, 5);
+		TestClass tk1(2), tk2(4),tk3(6);
+		cout <<"data: "<< (int)a1tk.getData() << endl;;
+		system("pause");
 		
 	}
 	system("pause");

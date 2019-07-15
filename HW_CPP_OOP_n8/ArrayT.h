@@ -45,6 +45,9 @@ public:
 	void removeAll();
 	T* getData();//T*
 	ArrayT& append(const ArrayT&, const ArrayT&);
+	// operators
+	int& operator[](int);//return T&
+	Array& operator=(const Array&);//T T
 };
 //ArrayT methods
 template<class T>
@@ -82,7 +85,7 @@ template<class T>
 void ArrayT<T>::setSize(int newsize, int newgrow) {
 	if (newgrow > 0)
 		grow = newgrow;
-	T* newdata = new T[newsize] {};//new T 0 0 0 0 
+	T* newdata = new T[newsize];//new T 0 0 0 0 
 	for (int i = 0; i < size && i < newsize; i++)
 		newdata[i] = data[i];
 	delete[] data;
@@ -100,6 +103,47 @@ void ArrayT<T>::show(bool ubON) {//ubON==true is show until upperBound index
 		cout << "[Empty Array]";
 	cout << endl;
 }
+template<class T>
+int ArrayT<T>::getUpperBound(){
+	return upperBound;
+}
+template<class T>
+bool ArrayT<T>::isEmpty() {
+	return upperBound == -1;
+}
+template<class T>
+T ArrayT<T>::getAt(int index) {// T array
+	if (index<0 || index > upperBound)
+		throw "out of range";//exception
+	return data[index];
+}
+template<class T>
+void ArrayT<T>::setAt(T value, int index) {// T value
+	if (index<0 || index > upperBound)
+		throw "out of range";//exception
+	data[index] = value;
+}
+template<class T>
+int ArrayT<T>::add(T value) {//T value
+	if (upperBound == size - 1)//array is filled
+		setSize(size + grow, grow);//up size of array from size to size+grow
+	data[++upperBound] = value;
+	return upperBound;
+}
+template<class T>
+void ArrayT<T>::freeExtra() {
+	setSize(upperBound + 1, grow);
+}
+template<class T>
+void ArrayT<T>::removeAll() {
+	upperBound = -1;
+	setSize(0,grow);
+}
+template<class T>
+T* ArrayT<T>::getData() {//T*
+	return data;
+}
+
 
 // TestClass methods
 TestClass::TestClass(int i) :i(i) {
