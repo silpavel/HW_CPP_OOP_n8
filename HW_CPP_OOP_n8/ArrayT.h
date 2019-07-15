@@ -34,7 +34,7 @@ public:
 	~ArrayT();
 	// methods
 	int getSize();
-	int getUpperBound();
+	int getUpperBound()const;
 	bool isEmpty();
 	void setSize(int size, int grow=1);
 	void show(bool ubON = 1);
@@ -104,7 +104,7 @@ void ArrayT<T>::show(bool ubON) {//ubON==true is show until upperBound index
 	cout << endl;
 }
 template<class T>
-int ArrayT<T>::getUpperBound(){
+int ArrayT<T>::getUpperBound()const{
 	return upperBound;
 }
 template<class T>
@@ -142,6 +142,19 @@ void ArrayT<T>::removeAll() {
 template<class T>
 T* ArrayT<T>::getData() {//T*
 	return data;
+}
+template<class T>
+ArrayT<T>& ArrayT<T>::append(const ArrayT<T>& a1, const ArrayT<T>& a2) {
+	int a1ub = a1.getUpperBound();
+	int a2ub = a2.getUpperBound();
+	int grow = (a1.grow > a2.grow) ? a1.grow : a2.grow;//find max grow
+	setSize(a1ub + 1 + a2ub + 1, grow);
+	for (int i = 0; i <= a1ub; i++)
+		data[i] = a1.data[i];
+	for (int i = 0; i <= a2ub; i++)
+		data[a1ub + 1 + i] = a2.data[i];
+	upperBound = a1ub + a2ub + 1;
+	return *this;
 }
 
 

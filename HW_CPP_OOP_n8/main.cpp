@@ -13,11 +13,11 @@ int main() {
 	//testList();
 	//testArray();
 	{
-		//ArrayT<int> a1i(5,3);
-		ArrayT<TestClass> a1tk(5, 2);
+		//ArrayT<int> a1i(3,3),a2i(3,3);
+		ArrayT<TestClass> a1tk(2, 2),a2tk(2,2);
 		//ArrayT<TestClass*> a1tk_p(5, 5);
 		TestClass tk1(2), tk2(4),tk3(6);
-		cout <<"data: "<< (int)a1tk.getData() << endl;;
+		
 		system("pause");
 		
 	}
