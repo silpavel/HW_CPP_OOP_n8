@@ -14,8 +14,23 @@ int main() {
 	//testList();
 	//testArray();
 	{
-		
-		
+		Array a(3,3);
+		a.add(1);
+		a.add(3);
+		a.add(5);
+		a.show();
+		a.show(0);
+		try {
+			a.insertAt(7, 2);
+			a.show();
+			a.show(0);
+			a.removeAt(-1);
+		}
+		catch(...){
+			cout << "Exception! "  << endl;
+		}
+		a.show();
+		a.show(0);
 		
 		
 	}

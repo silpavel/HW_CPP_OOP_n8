@@ -25,6 +25,8 @@ public:
 	void removeAll();
 	int* getData();//T*
 	Array& append(const Array&, const Array&);
+	void insertAt(int value,int index);
+	void removeAt(int index);
 	// operators
 	int& operator[](int);//return T&
 	Array& operator=(const Array&);//T T
@@ -134,8 +136,24 @@ Array& Array::append(const Array &a1, const Array &a2) {
 int* Array::getData() {//T*
 	return data;
 }
-
-
+void Array::insertAt(int value, int index) {
+	if (index<0 || index > upperBound)
+		throw "out of range";//exception
+	if (upperBound == size - 1)//array is filled
+		setSize(size + grow, grow);
+	for (int i = upperBound; i >= index; i--)
+		data[i + 1] = data[i];//last [index] to [index+1]
+	//data[index] is free
+	data[index] = value;
+	upperBound++;
+}
+void Array::removeAt(int index) {
+	if (index<0 || index > upperBound)
+		throw "out of range";//exception
+	for (int i = index; i < upperBound; i++)
+		data[i] = data[i + 1];//last [i+1] is [upperBound]
+	upperBound--;
+}
 
 #define ARRAY_H
 #endif // !ARRAY_H
